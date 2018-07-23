@@ -8,23 +8,31 @@ import com.mert.managementsystem.dao.impl.EmployeeDaoImpl;
 import com.mert.managementsystem.entities.Department;
 import com.mert.managementsystem.entities.Employee;
 
-public class Service {
-	public static void main(String[] args) {
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Employee.class)
-				.addAnnotatedClass(Department.class).buildSessionFactory();
-		Session session = factory.getCurrentSession();
+public class Service
+{
+   public static void main( String[] args )
+   {
+      final SessionFactory factory =
+            new Configuration().configure( "hibernate.cfg.xml" )
+            .addAnnotatedClass( Employee.class ).addAnnotatedClass( Department.class )
+            .addAnnotatedClass( EmployeeDaoImpl.class ).buildSessionFactory();
+      final Session session = factory.getCurrentSession();
 
-		try {
-			Department dept = new Department("Line Management");
-			Employee mert = new Employee("Natasha", "Another", "Ozd", "mert", "abc123", "131", "Junior");
-			mert.setDeptId(dept);
-			session.beginTransaction();
-			session.save(mert);
-			session.getTransaction().commit();
+      try
+      {
+         final Department dept = new Department( "Line Management" );
+         final Employee mert =
+               new Employee( "Natasha", "Another", "Ozd", "mert", "abc123", "131", "Junior" );
 
-		} finally {
-			session.close();
-		}
+         final EmployeeDaoImpl impl = new EmployeeDaoImpl();
+         impl.setSessionFactory( factory );
+         impl.listEmployees();
 
-	}
+      }
+      finally
+      {
+         session.close();
+      }
+
+   }
 }

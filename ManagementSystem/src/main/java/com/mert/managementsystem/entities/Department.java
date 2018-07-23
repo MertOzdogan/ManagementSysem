@@ -7,38 +7,58 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "department")
-public class Department {
+public class Department
+{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column
-	private String name;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private int id;
 
-	public int getId() {
-		return id;
-	}
+   @Column
+   private String name;
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public String getName() {
-		return name;
-	}
+   public int getId()
+   {
+      return this.id;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", name=" + name + "]";
-	}
+   public void setId( int id )
+   {
+      this.id = id;
+   }
 
-	public Department(String name) {
-		super();
-		this.name = name;
-	}
+
+   public String getName()
+   {
+      return this.name;
+   }
+
+
+   public void setName( String name )
+   {
+      this.name = name;
+   }
+
+
+   @Override
+   public String toString()
+   {
+      return "Department [id=" + this.id + ", name=" + this.name + "]";
+   }
+
+
+   public Department( String name )
+   {
+      super();
+      this.name = name;
+   }
+
+
+   public Department( )
+   {
+      super();
+   }
 
 }
