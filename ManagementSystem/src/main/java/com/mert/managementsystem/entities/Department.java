@@ -1,64 +1,77 @@
 package com.mert.managementsystem.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity(name = "department")
-public class Department
-{
+public class Department {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-   @Column
-   private String name;
+	@Column
+	private String name;
 
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH }, mappedBy = "deptId")
+	private List<Employee> employes;
 
-   public int getId()
-   {
-      return this.id;
-   }
+	public void add(Employee employee) {
 
+		if (employes == null)
+			employes = new ArrayList<>();
 
-   public void setId( int id )
-   {
-      this.id = id;
-   }
+		employes.add(employee);
+		employee.setDeptId(this);
+	}
 
+	public int getId() {
+		return this.id;
+	}
 
-   public String getName()
-   {
-      return this.name;
-   }
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	public String getName() {
+		return this.name;
+	}
 
-   public void setName( String name )
-   {
-      this.name = name;
-   }
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	@Override
+	public String toString() {
+		return "Department [id=" + this.id + ", name=" + this.name + "]";
+	}
 
-   @Override
-   public String toString()
-   {
-      return "Department [id=" + this.id + ", name=" + this.name + "]";
-   }
+	public Department(String name) {
+		super();
+		this.name = name;
+	}
 
+	public Department() {
+		super();
+	}
 
-   public Department( String name )
-   {
-      super();
-      this.name = name;
-   }
+	public List<Employee> getEmployes() {
+		return employes;
+	}
 
-
-   public Department( )
-   {
-      super();
-   }
+	public void setEmployes(List<Employee> employes) {
+		this.employes = employes;
+	}
 
 }
