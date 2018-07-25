@@ -8,6 +8,7 @@ import com.mert.managementsystem.dao.DepartmentDao;
 import com.mert.managementsystem.entities.Department;
 
 public class DepartmentDaoImpl implements DepartmentDao {
+
 	Session session;
 
 	@Override
