@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import com.mert.managementsystem.gui.constants.Constants;
+import com.mert.managementsystem.gui.eventlisteners.AddEmployeeButtonClickListener;
 import com.mert.managementsystem.services.ManagementService;
 import com.mert.managementsystem.services.ServiceFactory;
 
@@ -27,8 +29,7 @@ public class EmployeeTabPanel extends JPanel {
 
 	private final GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
 
-	private ManagementService managementService = (ManagementService) ServiceFactory
-			.getService(ManagementService.class);
+	AddEmployeeButtonClickListener buttonClickListener = new AddEmployeeButtonClickListener();
 
 	public EmployeeTabPanel() {
 		this.setLayout(this.mainLayout);
@@ -54,15 +55,14 @@ public class EmployeeTabPanel extends JPanel {
 		this.mainLayoutConstraints.gridy = 2;
 		this.add(this.modifyEmployeeBtn, this.mainLayoutConstraints);
 
+		addEmployeeBtn.setActionCommand(Constants.ADD_EMPLOYEE_CMD);
+		deleteEmployeeBtn.setActionCommand(Constants.DELETE_EMPLOYEE_CMD);
+		modifyEmployeeBtn.setActionCommand(Constants.MODIFY_EMPLOYEE_CMD);
+
+		this.addEmployeeBtn.addActionListener(buttonClickListener);
+		this.deleteEmployeeBtn.addActionListener(buttonClickListener);
+		this.modifyEmployeeBtn.addActionListener(buttonClickListener);
 		this.validate();
-	}
-
-	public ManagementService getManagementService() {
-		return managementService;
-	}
-
-	public void setManagementService(ManagementService managementService) {
-		this.managementService = managementService;
 	}
 
 }

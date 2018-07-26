@@ -13,30 +13,40 @@ import com.mert.managementsystem.entities.Goods;
 
 public class ManagementService implements Service {
 	private static ManagementService INSTANCE;
-
 	final SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Employee.class)
 			.addAnnotatedClass(Department.class).addAnnotatedClass(EmployeeDaoImpl.class).addAnnotatedClass(Goods.class)
 			.addAnnotatedClass(Customer.class).buildSessionFactory();
+
+	// Here is where Spring actually is to be used to inject Daos.
 	private final DepartmentDaoImpl departmentDao = new DepartmentDaoImpl();
 	private final EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+	Session session = factory.getCurrentSession();
 
 	private ManagementService() {
-		System.out.println("here");
-		final Session session = factory.getCurrentSession();
 		try {
-			session.beginTransaction();
 			employeeDao.setSession(session);
-			Department dept = new Department("Yeni departmant");
-			Employee employee = new Employee("Fried", "Getting", "Dangerous", "Janka", "Gosh", "60", "Hot");
-
-			employeeDao.addEmployee(employee);
-			session.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 
 		}
+	}
+
+	public void createSingleEmployee(Employee employee) {
+		session.beginTransaction();
+		employeeDao.addEmployee(employee);
+		session.getTransaction().commit();
+		System.out.println(session.isConnected() + " " + session.isOpen());
+
+	}
+
+	public void createSingleEmployee(Employee employee, Department department) {
+		session.beginTransaction();
+		department.add(employee);
+		employeeDao.addEmployee(employee);
+		session.getTransaction().commit();
+
 	}
 
 	public static ManagementService getINSTANCE() {

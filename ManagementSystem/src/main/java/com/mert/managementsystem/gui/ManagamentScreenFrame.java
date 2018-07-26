@@ -6,11 +6,14 @@ import javax.swing.JTabbedPane;
 import com.mert.managementsystem.gui.employeetab.EmployeeTabPanel;
 
 public class ManagamentScreenFrame extends JFrame {
+
+	private EmployeeTabPanel employeeTabPanel = new EmployeeTabPanel();
+
 	public ManagamentScreenFrame() {
-		
+
 		final JTabbedPane managementSystemTabbedPane = new JTabbedPane();
-		managementSystemTabbedPane.add("Employee", new EmployeeTabPanel());
-	
+		managementSystemTabbedPane.add("Employee", employeeTabPanel);
+
 		this.add(managementSystemTabbedPane);
 		this.pack();
 		this.validate();
