@@ -122,6 +122,19 @@ public class Employee {
 		this.type = type;
 	}
 
+	public Employee(String username, String name, String surname, String mail, String password, String salary,
+			String type, Department deptId) {
+		super();
+		this.username = username;
+		this.name = name;
+		this.surname = surname;
+		this.mail = mail;
+		this.password = password;
+		this.salary = salary;
+		this.type = type;
+		this.deptId = deptId;
+	}
+
 	public Employee() {
 		super();
 	}

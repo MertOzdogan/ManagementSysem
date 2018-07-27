@@ -1,17 +1,24 @@
 package com.mert.managementsystem.gui.employeetab;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
+import javax.swing.ComboBoxEditor;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.event.ListDataListener;
 
 import com.mert.managementsystem.entities.Department;
 import com.mert.managementsystem.gui.constants.Constants;
 import com.mert.managementsystem.gui.eventlisteners.AddEmployeeButtonClickListener;
+import com.mert.managementsystem.services.ManagementService;
+import com.mert.managementsystem.services.ServiceFactory;
 
 public class AddEmployeePanel extends JDialog {
 
@@ -33,11 +40,12 @@ public class AddEmployeePanel extends JDialog {
 	private final JLabel salaryLbl = new JLabel("Salary");
 	private final JLabel deptLbl = new JLabel("Department");
 	private final JLabel typeLbl = new JLabel("Type");
-
+	//
 	private final JButton saveBtn = new JButton("Save");
 	private final JButton cancelBtn = new JButton("Cancel");
-	private final AddEmployeeButtonClickListener buttonClickListener = new AddEmployeeButtonClickListener(userNameTxt, nameTxt, surnameTxt,
-			mailTxt, passwordTxt, salaryTxt, departmentCombo, typeCombo);
+	//
+	private final AddEmployeeButtonClickListener buttonClickListener = new AddEmployeeButtonClickListener(userNameTxt,
+			nameTxt, surnameTxt, mailTxt, passwordTxt, salaryTxt, departmentCombo, typeCombo);
 
 	private AddEmployeePanel() {
 		this.setLayout(new GridLayout(9, 2));
@@ -62,12 +70,12 @@ public class AddEmployeePanel extends JDialog {
 		this.add(cancelBtn);
 		this.add(saveBtn);
 
+		departmentCombo.insertItemAt(null, 0);
 		this.saveBtn.setActionCommand(Constants.SAVE_EMPLOYEE_CMD);
 		this.cancelBtn.setActionCommand(Constants.CANCEL_EMPLOYEE_CMD);
 
 		this.saveBtn.addActionListener(buttonClickListener);
 		this.cancelBtn.addActionListener(buttonClickListener);
-
 		this.setPreferredSize(new Dimension(300, 300));
 		this.pack();
 		this.validate();

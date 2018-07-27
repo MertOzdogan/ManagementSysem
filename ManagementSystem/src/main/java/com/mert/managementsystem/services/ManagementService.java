@@ -1,5 +1,7 @@
 package com.mert.managementsystem.services;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,44 +15,77 @@ import com.mert.managementsystem.entities.Goods;
 
 public class ManagementService implements Service {
 	private static ManagementService INSTANCE;
-	final SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Employee.class)
-			.addAnnotatedClass(Department.class).addAnnotatedClass(EmployeeDaoImpl.class).addAnnotatedClass(Goods.class)
-			.addAnnotatedClass(Customer.class).buildSessionFactory();
 
 	// Here is where Spring actually is to be used to inject Daos.
 	private final DepartmentDaoImpl departmentDao = new DepartmentDaoImpl();
 	private final EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-	Session session = factory.getCurrentSession();
+	Session session;
 
 	private ManagementService() {
-		try {
-			employeeDao.setSession(session);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-
-		}
 	}
 
 	public void createSingleEmployee(Employee employee) {
-		session.beginTransaction();
-		employeeDao.addEmployee(employee);
-		session.getTransaction().commit();
-		System.out.println(session.isConnected() + " " + session.isOpen());
-
+		try {
+			session = FACTORY.openSession();
+			employeeDao.setSession(session);
+			session.beginTransaction();
+			employeeDao.addEmployee(employee);
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
 	}
 
 	public void createSingleEmployee(Employee employee, Department department) {
-		session.beginTransaction();
-		department.add(employee);
-		employeeDao.addEmployee(employee);
-		session.getTransaction().commit();
+		try {
+			session = FACTORY.openSession();
+			employeeDao.setSession(session);
+			session.beginTransaction();
+			department.add(employee);
 
+			employeeDao.addEmployee(employee);
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+
+	}
+
+	public void createDepartment() {
+	}
+
+	public List<Department> getDepartmentList() {
+		List<Department> departmentList;
+		try {
+			session = FACTORY.openSession();
+			departmentDao.setSession(session);
+			session.beginTransaction();
+			departmentList = departmentDao.listDepartments();
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+
+		}
+		return departmentList;
 	}
 
 	public static ManagementService getINSTANCE() {
 		return INSTANCE == null ? new ManagementService() : INSTANCE;
+	}
+
+	public List<Employee> getEmployeeList() {
+		List<Employee> employeeList;
+		try {
+			session = FACTORY.openSession();
+			employeeDao.setSession(session);
+			session.beginTransaction();
+			employeeList = employeeDao.listEmployees();
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+		return employeeList;
 	}
 
 }

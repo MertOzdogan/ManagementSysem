@@ -1,5 +1,6 @@
 package com.mert.managementsystem.gui.employeetab;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -35,7 +36,6 @@ public class EmployeeTabPanel extends JPanel {
 		this.setLayout(this.mainLayout);
 		this.setBorder(BorderFactory.createTitledBorder("Employee"));
 		this.employeeTable = new JTable(this.employeeTableModel);
-		// this.mainLayoutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		this.mainLayoutConstraints.gridwidth = 1;
 		this.mainLayoutConstraints.gridx = 0;
 		this.mainLayoutConstraints.gridy = 0;

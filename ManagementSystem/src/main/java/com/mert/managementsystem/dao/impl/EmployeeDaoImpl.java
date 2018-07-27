@@ -18,7 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	Session session;
 
 	public void addEmployee(Employee employee) {
-		this.session.persist(employee);
+		this.session.save(employee);
 	}
 
 	@Transactional
