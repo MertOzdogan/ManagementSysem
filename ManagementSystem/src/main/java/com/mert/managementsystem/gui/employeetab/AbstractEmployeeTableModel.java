@@ -11,48 +11,62 @@ import com.mert.managementsystem.services.ServiceFactory;
 
 public class AbstractEmployeeTableModel extends AbstractTableModel {
 
-	String[] columnNames = { "ID", "Username", "Name", "Surname", "Mail", "Password", "Salary", "Department", "Type" };
-	ManagementService managementService = (ManagementService) ServiceFactory.getService(ManagementService.class);
-	List<Employee> employeeList = managementService.getEmployeeList();
-	List<Department> departmentList = managementService.getDepartmentList();
+	private final String[] columnNames = { "ID", "Username", "Name", "Surname", "Mail", "Password", "Salary",
+			"Department", "Type" };
+
+	private final Class columnTypes[] = { Integer.class, String.class, String.class, String.class, String.class,
+			String.class, String.class, Department.class, String.class };
+	private final ManagementService managementService = (ManagementService) ServiceFactory
+			.getService(ManagementService.class);
+	private final List<Employee> employeeList = this.managementService.getEmployeeList();
+
+	private final List<Department> departmentList = this.managementService.getDepartmentList();
 
 	@Override
-	public String getColumnName(int column) {
-		return columnNames[column];
+	public String getColumnName(final int column) {
+		return this.columnNames[column];
+	}
+
+	@Override
+	public Class<?> getColumnClass(final int columnIndex) {
+		return this.columnTypes[columnIndex];
 	}
 
 	public AbstractEmployeeTableModel() {
 
 	}
 
+	@Override
 	public int getColumnCount() {
 		return 9;
 	}
 
+	@Override
 	public int getRowCount() {
-		return employeeList.size();
+		return this.employeeList.size();
 	}
 
-	public Object getValueAt(int rowIndex, int columnIndex) {
+	@Override
+	public Object getValueAt(final int rowIndex, final int columnIndex) {
 		switch (columnIndex) {
 		case 0:
-			return employeeList.get(rowIndex).getId();
+			return this.employeeList.get(rowIndex).getId();
 		case 1:
-			return employeeList.get(rowIndex).getUsername();
+			return this.employeeList.get(rowIndex).getUsername();
 		case 2:
-			return employeeList.get(rowIndex).getName();
+			return this.employeeList.get(rowIndex).getName();
 		case 3:
-			return employeeList.get(rowIndex).getSurname();
+			return this.employeeList.get(rowIndex).getSurname();
 		case 4:
-			return employeeList.get(rowIndex).getMail();
+			return this.employeeList.get(rowIndex).getMail();
 		case 5:
-			return employeeList.get(rowIndex).getPassword();
+			return this.employeeList.get(rowIndex).getPassword();
 		case 6:
-			return employeeList.get(rowIndex).getSalary();
+			return this.employeeList.get(rowIndex).getSalary();
 		case 7:
-			return employeeList.get(rowIndex).getDeptId().getName();
+			return this.employeeList.get(rowIndex).getDeptId().getName();
 		case 8:
-			return employeeList.get(rowIndex).getType();
+			return this.employeeList.get(rowIndex).getType();
 
 		default:
 			break;
@@ -60,10 +74,20 @@ public class AbstractEmployeeTableModel extends AbstractTableModel {
 		return null;
 	}
 
-	private Department findDepartmentById(int id) {
-		for (Department department : departmentList) {
-			if (department.getId() == id)
+	public Department findDepartmentById(final int id) {
+		for (final Department department : this.departmentList) {
+			if (department.getId() == id) {
 				return department;
+			}
+		}
+		return null;
+	}
+
+	public Employee findEmployeeById(final int id) {
+		for (final Employee employee : this.employeeList) {
+			if (employee.getId() == id) {
+				return employee;
+			}
 		}
 		return null;
 	}

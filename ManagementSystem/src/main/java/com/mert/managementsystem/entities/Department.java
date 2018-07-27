@@ -11,10 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-
-@Entity(name = "department")
+@Entity
+@Table(name = "department")
 public class Department {
 
 	@Id
@@ -28,12 +28,13 @@ public class Department {
 			CascadeType.REFRESH }, mappedBy = "deptId")
 	private List<Employee> employes;
 
-	public void add(Employee employee) {
+	public void add(final Employee employee) {
 
-		if (employes == null)
-			employes = new ArrayList<>();
+		if (this.employes == null) {
+			this.employes = new ArrayList<>();
+		}
 
-		employes.add(employee);
+		this.employes.add(employee);
 		employee.setDeptId(this);
 	}
 
@@ -41,7 +42,7 @@ public class Department {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -49,7 +50,7 @@ public class Department {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -58,7 +59,7 @@ public class Department {
 		return "Department [id=" + this.id + ", name=" + this.name + "]";
 	}
 
-	public Department(String name) {
+	public Department(final String name) {
 		super();
 		this.name = name;
 	}
@@ -68,10 +69,10 @@ public class Department {
 	}
 
 	public List<Employee> getEmployes() {
-		return employes;
+		return this.employes;
 	}
 
-	public void setEmployes(List<Employee> employes) {
+	public void setEmployes(final List<Employee> employes) {
 		this.employes = employes;
 	}
 

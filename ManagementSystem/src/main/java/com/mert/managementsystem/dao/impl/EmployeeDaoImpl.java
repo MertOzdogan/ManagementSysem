@@ -5,42 +5,46 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.mert.managementsystem.dao.EmployeeDao;
 import com.mert.managementsystem.entities.Employee;
 
-@Component
 public class EmployeeDaoImpl implements EmployeeDao {
 
 	Session session;
 
-	public void addEmployee(Employee employee) {
+	@Override
+	public void addEmployee(final Employee employee) {
 		this.session.save(employee);
 	}
 
+	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Employee> listEmployees() {
+
 		return this.session.createCriteria(Employee.class).list();
 	}
 
-	public Employee getEmployeeById(int id) {
-		return session.get(Employee.class, id);
+	@Override
+	public Employee getEmployeeById(final int id) {
+		return this.session.get(Employee.class, id);
 	}
 
-	public void removeEmployee(int id) {
-		session.delete(session.get(Employee.class, id));
+	@Override
+	public void removeEmployee(final int id) {
+		this.session.delete(this.session.get(Employee.class, id));
+	}
 
+	public void updateEmployee(final Employee employee) {
+		this.session.update(employee);
 	}
 
 	public Session getSession() {
-		return session;
+		return this.session;
 	}
 
-	public void setSession(Session session) {
+	public void setSession(final Session session) {
 		this.session = session;
 	}
 

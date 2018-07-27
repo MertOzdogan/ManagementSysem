@@ -31,38 +31,38 @@ public class Goods {
 	private List<Customer> customer;
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	public String getPrice() {
-		return price;
+		return this.price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(final String price) {
 		this.price = price;
 	}
 
 	public int getStock() {
-		return stock;
+		return this.stock;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(final int stock) {
 		this.stock = stock;
 	}
 
 	public List<Customer> getCustomer() {
-		return customer;
+		return this.customer;
 	}
 
-	public void setCustomer(List<Customer> customer) {
+	public void setCustomer(final List<Customer> customer) {
 		this.customer = customer;
 	}
 
-	public Goods(String name, String price, int stock) {
+	public Goods(final String name, final String price, final int stock) {
 		super();
 		this.name = name;
 		this.price = price;

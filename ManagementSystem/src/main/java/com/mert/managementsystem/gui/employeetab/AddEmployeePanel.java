@@ -1,24 +1,18 @@
 package com.mert.managementsystem.gui.employeetab;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
-import javax.swing.ComboBoxEditor;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.event.ListDataListener;
 
 import com.mert.managementsystem.entities.Department;
+import com.mert.managementsystem.entities.Employee;
 import com.mert.managementsystem.gui.constants.Constants;
 import com.mert.managementsystem.gui.eventlisteners.AddEmployeeButtonClickListener;
-import com.mert.managementsystem.services.ManagementService;
-import com.mert.managementsystem.services.ServiceFactory;
 
 public class AddEmployeePanel extends JDialog {
 
@@ -44,76 +38,100 @@ public class AddEmployeePanel extends JDialog {
 	private final JButton saveBtn = new JButton("Save");
 	private final JButton cancelBtn = new JButton("Cancel");
 	//
-	private final AddEmployeeButtonClickListener buttonClickListener = new AddEmployeeButtonClickListener(userNameTxt,
-			nameTxt, surnameTxt, mailTxt, passwordTxt, salaryTxt, departmentCombo, typeCombo);
+	private final AddEmployeeButtonClickListener buttonClickListener = new AddEmployeeButtonClickListener(
+			this.userNameTxt, this.nameTxt, this.surnameTxt, this.mailTxt, this.passwordTxt, this.salaryTxt,
+			this.departmentCombo, this.typeCombo);
 
 	private AddEmployeePanel() {
 		this.setLayout(new GridLayout(9, 2));
 
-		this.add(userNameLbl);
-		this.add(userNameTxt);
-		this.add(nameLbl);
-		this.add(nameTxt);
-		this.add(surnameLbl);
-		this.add(surnameTxt);
-		this.add(mailLBl);
-		this.add(mailTxt);
-		this.add(passwordLbl);
-		this.add(passwordTxt);
-		this.add(salaryLbl);
-
-		this.add(salaryTxt);
-		this.add(deptLbl);
-		this.add(departmentCombo);
-		this.add(typeLbl);
-		this.add(typeCombo);
-		this.add(cancelBtn);
-		this.add(saveBtn);
-
-		departmentCombo.insertItemAt(null, 0);
-		this.saveBtn.setActionCommand(Constants.SAVE_EMPLOYEE_CMD);
+		this.add(this.userNameLbl);
+		this.add(this.userNameTxt);
+		this.add(this.nameLbl);
+		this.add(this.nameTxt);
+		this.add(this.surnameLbl);
+		this.add(this.surnameTxt);
+		this.add(this.mailLBl);
+		this.add(this.mailTxt);
+		this.add(this.passwordLbl);
+		this.add(this.passwordTxt);
+		this.add(this.salaryLbl);
+		this.add(this.salaryTxt);
+		this.add(this.deptLbl);
+		this.add(this.departmentCombo);
+		this.add(this.typeLbl);
+		this.add(this.typeCombo);
+		this.add(this.cancelBtn);
+		this.add(this.saveBtn);
+		this.departmentCombo.insertItemAt(null, 0);
 		this.cancelBtn.setActionCommand(Constants.CANCEL_EMPLOYEE_CMD);
 
-		this.saveBtn.addActionListener(buttonClickListener);
-		this.cancelBtn.addActionListener(buttonClickListener);
+		this.saveBtn.addActionListener(this.buttonClickListener);
+		this.cancelBtn.addActionListener(this.buttonClickListener);
 		this.setPreferredSize(new Dimension(300, 300));
 		this.pack();
 		this.validate();
 	}
 
+	public void setCommandType(final AddModifyEmployePanelType type) {
+		if (type.equals(AddModifyEmployePanelType.ADD)) {
+			this.saveBtn.setActionCommand(Constants.SAVE_EMPLOYEE_CMD);
+
+		} else {
+			this.saveBtn.setActionCommand(Constants.MODIFY_EMPLOYEE_CMD);
+
+		}
+	}
+
+	public void setModifyValues(final Employee employee) {
+		this.userNameTxt.setText(employee.getUsername());
+		this.nameTxt.setText(employee.getName());
+		this.surnameTxt.setText(employee.getSurname());
+		this.mailTxt.setText(employee.getMail());
+		this.passwordTxt.setText(employee.getPassword());
+		this.salaryTxt.setText(employee.getSalary());
+		this.departmentCombo.setSelectedItem(employee.getDeptId());
+		this.setVisible(true);
+	}
+
+	// here all to be refactored with Spring with wiring. Idk how.
 	public static AddEmployeePanel getINSTANCE() {
-		return INSTANCE == null ? INSTANCE = new AddEmployeePanel() : INSTANCE;
+		if (AddEmployeePanel.INSTANCE == null) {
+
+			AddEmployeePanel.INSTANCE = new AddEmployeePanel();
+		}
+		return AddEmployeePanel.INSTANCE;
 	}
 
 	public JTextField getUserNameTxt() {
-		return userNameTxt;
+		return this.userNameTxt;
 	}
 
 	public JTextField getNameTxt() {
-		return nameTxt;
+		return this.nameTxt;
 	}
 
 	public JTextField getSurnameTxt() {
-		return surnameTxt;
+		return this.surnameTxt;
 	}
 
 	public JTextField getMailTxt() {
-		return mailTxt;
+		return this.mailTxt;
 	}
 
 	public JTextField getPasswordTxt() {
-		return passwordTxt;
+		return this.passwordTxt;
 	}
 
 	public JTextField getSalaryTxt() {
-		return salaryTxt;
+		return this.salaryTxt;
 	}
 
 	public JComboBox<Department> getDepartmentCombo() {
-		return departmentCombo;
+		return this.departmentCombo;
 	}
 
 	public JComboBox<String> getTypeCombo() {
-		return typeCombo;
+		return this.typeCombo;
 	}
 }

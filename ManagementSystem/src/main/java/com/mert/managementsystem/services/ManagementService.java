@@ -3,15 +3,11 @@ package com.mert.managementsystem.services;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import com.mert.managementsystem.dao.impl.DepartmentDaoImpl;
 import com.mert.managementsystem.dao.impl.EmployeeDaoImpl;
-import com.mert.managementsystem.entities.Customer;
 import com.mert.managementsystem.entities.Department;
 import com.mert.managementsystem.entities.Employee;
-import com.mert.managementsystem.entities.Goods;
 
 public class ManagementService implements Service {
 	private static ManagementService INSTANCE;
@@ -25,29 +21,29 @@ public class ManagementService implements Service {
 
 	}
 
-	public void createSingleEmployee(Employee employee) {
+	public void createSingleEmployee(final Employee employee) {
 		try {
-			session = FACTORY.openSession();
-			employeeDao.setSession(session);
-			session.beginTransaction();
-			employeeDao.addEmployee(employee);
-			session.getTransaction().commit();
+			this.session = Service.FACTORY.openSession();
+			this.employeeDao.setSession(this.session);
+			this.session.beginTransaction();
+			this.employeeDao.addEmployee(employee);
+			this.session.getTransaction().commit();
 		} finally {
-			session.close();
+			this.session.close();
 		}
 	}
 
-	public void createSingleEmployee(Employee employee, Department department) {
+	public void createSingleEmployee(final Employee employee, final Department department) {
 		try {
-			session = FACTORY.openSession();
-			employeeDao.setSession(session);
-			session.beginTransaction();
+			this.session = Service.FACTORY.openSession();
+			this.employeeDao.setSession(this.session);
+			this.session.beginTransaction();
 			department.add(employee);
 
-			employeeDao.addEmployee(employee);
-			session.getTransaction().commit();
+			this.employeeDao.addEmployee(employee);
+			this.session.getTransaction().commit();
 		} finally {
-			session.close();
+			this.session.close();
 		}
 
 	}
@@ -58,34 +54,47 @@ public class ManagementService implements Service {
 	public List<Department> getDepartmentList() {
 		List<Department> departmentList;
 		try {
-			session = FACTORY.openSession();
-			departmentDao.setSession(session);
-			session.beginTransaction();
-			departmentList = departmentDao.listDepartments();
-			session.getTransaction().commit();
+			this.session = Service.FACTORY.openSession();
+			this.departmentDao.setSession(this.session);
+			this.session.beginTransaction();
+			departmentList = this.departmentDao.listDepartments();
+			this.session.getTransaction().commit();
 		} finally {
-			session.close();
+			this.session.close();
 
 		}
 		return departmentList;
 	}
 
 	public static ManagementService getINSTANCE() {
-		return INSTANCE == null ? new ManagementService() : INSTANCE;
+		return ManagementService.INSTANCE == null ? new ManagementService() : ManagementService.INSTANCE;
 	}
 
 	public List<Employee> getEmployeeList() {
 		List<Employee> employeeList;
 		try {
-			session = FACTORY.openSession();
-			employeeDao.setSession(session);
-			session.beginTransaction();
-			employeeList = employeeDao.listEmployees();
-			session.getTransaction().commit();
+			this.session = Service.FACTORY.openSession();
+			this.employeeDao.setSession(this.session);
+			this.session.beginTransaction();
+			employeeList = this.employeeDao.listEmployees();
+			this.session.getTransaction().commit();
 		} finally {
-			session.close();
+			this.session.close();
 		}
 		return employeeList;
+	}
+
+	public void updateSingleEmployee(final Employee employee, final Department department) {
+		try {
+			this.session = Service.FACTORY.openSession();
+			this.employeeDao.setSession(this.session);
+			this.session.beginTransaction();
+			department.add(employee);
+			this.employeeDao.updateEmployee(employee);
+			this.session.getTransaction().commit();
+		} finally {
+			this.session.close();
+		}
 	}
 
 }

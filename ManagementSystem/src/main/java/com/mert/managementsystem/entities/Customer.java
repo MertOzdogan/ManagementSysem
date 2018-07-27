@@ -35,64 +35,63 @@ public class Customer {
 	private List<Goods> goods;
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	public String getAge() {
-		return age;
+		return this.age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(final String age) {
 		this.age = age;
 	}
 
 	public String getCardnumber() {
-		return cardnumber;
+		return this.cardnumber;
 	}
 
-	public void setCardnumber(String cardnumber) {
+	public void setCardnumber(final String cardnumber) {
 		this.cardnumber = cardnumber;
 	}
 
 	public String getCredits() {
-		return credits;
+		return this.credits;
 	}
 
-	public void setCredits(String credits) {
+	public void setCredits(final String credits) {
 		this.credits = credits;
 	}
 
-
-	
 	public List<Goods> getGoods() {
-		return goods;
+		return this.goods;
 	}
 
-	public void setGoods(List<Goods> goods) {
+	public void setGoods(final List<Goods> goods) {
 		this.goods = goods;
 	}
 
-	public Customer(String username, String name, String age, String cardnumber, String credits) {
+	public Customer(final String username, final String name, final String age, final String cardnumber,
+			final String credits) {
 		super();
 		this.username = username;
 		this.name = name;

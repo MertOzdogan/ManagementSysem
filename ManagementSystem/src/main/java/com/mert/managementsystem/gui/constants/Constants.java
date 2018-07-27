@@ -6,4 +6,5 @@ public class Constants {
 	public static final String MODIFY_EMPLOYEE_CMD = "modifyEmployeeCmd";
 	public static final String SAVE_EMPLOYEE_CMD = "saveEmployeeCmd";
 	public static final String CANCEL_EMPLOYEE_CMD = "cancelEmployeeCmd";
+	public static final String REFRESH_EMPLOYEE_TABLE_CMD = "refreshEmployeeTableBtn";
 }

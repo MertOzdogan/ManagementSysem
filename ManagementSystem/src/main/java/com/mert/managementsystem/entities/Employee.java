@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -39,79 +38,79 @@ public class Employee {
 	private Department deptId;
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 
-	public void setSurname(String surname) {
+	public void setSurname(final String surname) {
 		this.surname = surname;
 	}
 
 	public String getMail() {
-		return mail;
+		return this.mail;
 	}
 
-	public void setMail(String mail) {
+	public void setMail(final String mail) {
 		this.mail = mail;
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
 	public String getSalary() {
-		return salary;
+		return this.salary;
 	}
 
-	public void setSalary(String salary) {
+	public void setSalary(final String salary) {
 		this.salary = salary;
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 
 	public Department getDeptId() {
-		return deptId;
+		return this.deptId;
 	}
 
-	public void setDeptId(Department deptId) {
+	public void setDeptId(final Department deptId) {
 		this.deptId = deptId;
 	}
 
-	public Employee(String username, String name, String surname, String mail, String password, String salary,
-			String type) {
+	public Employee(final String username, final String name, final String surname, final String mail,
+			final String password, final String salary, final String type) {
 		super();
 		this.username = username;
 		this.name = name;
@@ -122,8 +121,8 @@ public class Employee {
 		this.type = type;
 	}
 
-	public Employee(String username, String name, String surname, String mail, String password, String salary,
-			String type, Department deptId) {
+	public Employee(final String username, final String name, final String surname, final String mail,
+			final String password, final String salary, final String type, final Department deptId) {
 		super();
 		this.username = username;
 		this.name = name;
@@ -141,9 +140,9 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", username=" + username + ", name=" + name + ", surname=" + surname + ", mail="
-				+ mail + ", password=" + password + ", salary=" + salary + ", type=" + type + ", deptId=" + deptId
-				+ "]";
+		return "Employee [id=" + this.id + ", username=" + this.username + ", name=" + this.name + ", surname="
+				+ this.surname + ", mail=" + this.mail + ", password=" + this.password + ", salary=" + this.salary
+				+ ", type=" + this.type + ", deptId=" + this.deptId + "]";
 	}
 
 }
