@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 
 import com.mert.managementsystem.entities.Department;
 import com.mert.managementsystem.entities.Employee;
+import com.mert.managementsystem.gui.constants.AddModifyType;
 import com.mert.managementsystem.gui.constants.Constants;
 import com.mert.managementsystem.gui.employeetab.AddEmployeePanel;
 import com.mert.managementsystem.services.ManagementService;
@@ -28,7 +29,6 @@ public class AddEmployeeButtonClickListener implements ActionListener {
 
 	private final ManagementService managementService = (ManagementService) ServiceFactory
 			.getService(ManagementService.class);
-	private JTable table;
 
 	public AddEmployeeButtonClickListener() {
 		// TODO Auto-generated constructor stub
@@ -53,9 +53,11 @@ public class AddEmployeeButtonClickListener implements ActionListener {
 		final AddEmployeePanel addEmployeePanel = AddEmployeePanel.getINSTANCE();
 		switch (e.getActionCommand()) {
 		case Constants.ADD_EMPLOYEE_CMD:
-			addEmployeePanel.setVisible(true);
 			addEmployeePanel.getDepartmentCombo().removeAllItems();
 			this.managementService.getDepartmentList().forEach(addEmployeePanel.getDepartmentCombo()::addItem);
+			addEmployeePanel.setCommandType(AddModifyType.ADD);
+			addEmployeePanel.setVisible(true);
+
 			break;
 		case Constants.DELETE_EMPLOYEE_CMD:
 			break;
@@ -102,10 +104,6 @@ public class AddEmployeeButtonClickListener implements ActionListener {
 		default:
 			break;
 		}
-	}
-
-	public void setTable(final JTable employeeTable) {
-		this.table = employeeTable;
 	}
 
 }

@@ -48,7 +48,17 @@ public class ManagementService implements Service {
 
 	}
 
-	public void createDepartment() {
+	public void createDepartment(Department departmentToSave) {
+		try {
+			this.session = Service.FACTORY.openSession();
+			this.departmentDao.setSession(this.session);
+			this.session.beginTransaction();
+
+			this.departmentDao.addDepartment(departmentToSave);
+			this.session.getTransaction().commit();
+		} finally {
+			this.session.close();
+		}
 	}
 
 	public List<Department> getDepartmentList() {

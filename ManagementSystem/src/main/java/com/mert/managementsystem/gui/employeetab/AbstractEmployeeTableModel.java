@@ -11,6 +11,11 @@ import com.mert.managementsystem.services.ServiceFactory;
 
 public class AbstractEmployeeTableModel extends AbstractTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private final String[] columnNames = { "ID", "Username", "Name", "Surname", "Mail", "Password", "Salary",
 			"Department", "Type" };
 
@@ -19,7 +24,6 @@ public class AbstractEmployeeTableModel extends AbstractTableModel {
 	private final ManagementService managementService = (ManagementService) ServiceFactory
 			.getService(ManagementService.class);
 	private final List<Employee> employeeList = this.managementService.getEmployeeList();
-
 	private final List<Department> departmentList = this.managementService.getDepartmentList();
 
 	@Override

@@ -64,11 +64,12 @@ public class EmployeeTabPanel extends JPanel {
 		this.employeeTable.addMouseListener(new EmployeeTableMouseListener());
 		//
 		this.addEmployeeBtn.setActionCommand(Constants.ADD_EMPLOYEE_CMD);
+
 		this.deleteEmployeeBtn.setActionCommand(Constants.DELETE_EMPLOYEE_CMD);
 		this.modifyEmployeeBtn.setActionCommand(Constants.MODIFY_EMPLOYEE_CMD);
 		this.refreshBtn.setActionCommand(Constants.REFRESH_EMPLOYEE_TABLE_CMD);
 
-		this.buttonClickListener.setTable(this.employeeTable);
+		// this.buttonClickListener.setTable(this.employeeTable);
 		this.addEmployeeBtn.addActionListener(this.buttonClickListener);
 		this.deleteEmployeeBtn.addActionListener(this.buttonClickListener);
 		this.modifyEmployeeBtn.addActionListener(this.buttonClickListener);

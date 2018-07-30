@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import com.mert.managementsystem.entities.Department;
 import com.mert.managementsystem.entities.Employee;
+import com.mert.managementsystem.gui.constants.AddModifyType;
 import com.mert.managementsystem.gui.constants.Constants;
 import com.mert.managementsystem.gui.eventlisteners.AddEmployeeButtonClickListener;
 
@@ -73,8 +74,8 @@ public class AddEmployeePanel extends JDialog {
 		this.validate();
 	}
 
-	public void setCommandType(final AddModifyEmployePanelType type) {
-		if (type.equals(AddModifyEmployePanelType.ADD)) {
+	public void setCommandType(final AddModifyType type) {
+		if (type.equals(AddModifyType.ADD)) {
 			this.saveBtn.setActionCommand(Constants.SAVE_EMPLOYEE_CMD);
 
 		} else {
